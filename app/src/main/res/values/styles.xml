@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+    </style>
+
+    <style name="AppTheme_Pre1" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <!-- enable overlap of transitions -->
+        <item name="android:windowAllowEnterTransitionOverlap" tools:targetApi="lollipop">true
+        </item>
+        <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true
+        </item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorControlHighlight">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme_Pre1.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme_Pre1.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+</resources>
