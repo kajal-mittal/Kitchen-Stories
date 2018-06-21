@@ -18,6 +18,8 @@ import android.webkit.WebViewClient
 import android.webkit.WebChromeClient
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 
 
 class RecipeDetailActivity : AppCompatActivity(),View.OnClickListener {
@@ -34,6 +36,8 @@ class RecipeDetailActivity : AppCompatActivity(),View.OnClickListener {
         val fab = findViewById(R.id.fab) as FloatingActionButton
         val webview = findViewById(R.id.webview) as WebView
         val recyclerIngredients = findViewById(R.id.recycler_ingredients) as RecyclerView
+        val imgRecipeBg = findViewById(R.id.imageRecipeBack) as ImageView
+        val titleRecipe = findViewById(R.id.tv_title) as TextView
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -61,8 +65,10 @@ class RecipeDetailActivity : AppCompatActivity(),View.OnClickListener {
         })
 
         webview.loadUrl((mRecipeDetails as RecipeDetailsModel)?.recipe?.source_url)
-
-
+        Picasso.with(this)
+                .load((mRecipeDetails as RecipeDetailsModel)?.recipe?.image_url)
+                .into(imgRecipeBg);
+        titleRecipe?.setText((mRecipeDetails as RecipeDetailsModel)?.recipe?.title)
     }
     override fun onClick(v: View?) {
 
