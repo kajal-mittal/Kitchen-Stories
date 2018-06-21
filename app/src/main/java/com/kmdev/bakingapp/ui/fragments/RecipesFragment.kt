@@ -6,24 +6,25 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.google.gson.Gson
 import com.kmdev.bakingapp.R
 import com.kmdev.bakingapp.restclient.ApiHitListener
 import com.kmdev.bakingapp.restclient.ApiIds
 import com.kmdev.bakingapp.restclient.ConnectionDetector
 import com.kmdev.bakingapp.restclient.RestClient
-import com.kmdev.bakingapp.ui.adapters.RecipesAdapter
-import com.kmdev.bakingapp.ui.models.RecipesModel
-import com.kmdev.bakingapp.utils.Utils
-import android.widget.Toast
-import com.google.gson.Gson
 import com.kmdev.bakingapp.ui.activities.RecipeDetailActivity
+import com.kmdev.bakingapp.ui.adapters.RecipesAdapter
 import com.kmdev.bakingapp.ui.models.RecipeDetailsModel
+import com.kmdev.bakingapp.ui.models.RecipesModel
 import com.kmdev.bakingapp.utils.Constants
 import com.kmdev.bakingapp.utils.ItemOffsetDecoration
 import com.kmdev.bakingapp.utils.RecyclerItemClickListener
+import com.kmdev.bakingapp.utils.Utils
 
 
 /**
@@ -36,6 +37,7 @@ public class RecipesFragment : Fragment(), ApiHitListener, SwipeRefreshLayout.On
     private var mRecipeList = ArrayList<RecipesModel.RecipesBean>()
     private var mRestClient: RestClient? = null
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null;
+    private var mCurrentPage = 0
 
     companion object {
         fun newInstance(): RecipesFragment {
@@ -79,17 +81,52 @@ public class RecipesFragment : Fragment(), ApiHitListener, SwipeRefreshLayout.On
                     }
                 })
         )
-        mSwipeRefreshLayout?.setColorSchemeColors(R.color.colorPrimary,
-                R.color.colorAccent,
-                R.color.colorPrimaryDark,
-                R.color.black)
+        mRecyclerRecipes?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                //  mTvErrorShow.setVisibility(View.GONE);
+                onScrollLoadRecipes()
+
+
+            }
+
+        })
+        mSwipeRefreshLayout?.setColorSchemeColors(resources.getColor(R.color.colorPrimary),
+                resources.getColor(R.color.colorAccent),
+                resources.getColor(R.color.colorPrimaryDark),
+                resources.getColor(R.color.black))
         mSwipeRefreshLayout?.setOnRefreshListener(this);
+
+    }
+
+    private fun onScrollLoadRecipes() {
+        val linearLayoutManager = mRecyclerRecipes?.getLayoutManager() as StaggeredGridLayoutManager
+        // check if loading view (last item on our list) is visible
+        var mVisibleItemCount = linearLayoutManager.childCount
+        var mTotalItemCount = linearLayoutManager.itemCount
+        var mPastVisibleItems = 0;
+        var firstVisibleItems: IntArray? = null
+        firstVisibleItems = linearLayoutManager.findFirstVisibleItemPositions(firstVisibleItems)
+        if (firstVisibleItems != null && firstVisibleItems.size > 0) {
+            mPastVisibleItems = firstVisibleItems[0]
+        }
+
+        if (mVisibleItemCount + mPastVisibleItems >= mTotalItemCount) {
+            mCurrentPage++
+            callToGetRecipes()
+            Log.d("tag", "LOAD NEXT ITEM")
+
+        }
     }
 
     private fun callToGetRecipes() {
         Utils.displayLoadingDialog(activity, false)
         mRestClient!!.callback(this)
-                .getRecipes(1)
+                .getRecipes(mCurrentPage)
 
     }
 
