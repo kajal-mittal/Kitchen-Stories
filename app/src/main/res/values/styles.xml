@@ -34,5 +34,23 @@
     <style name="AppTheme_Pre1.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme_Pre1.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="TextAppearance.FontPath.BOLD" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/Montserrat-Bold.ttf</item>
+
+    </style>
+
+    <style name="TextAppearance.FontPath.BOLD.TITLE" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/Montserrat-Bold.ttf</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+
+    </style>
+
+    <style name="TextAppearance.FontPath.REGULAR" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/Montserrat-Regular.ttf</item>
+    </style>
 
 </resources>
