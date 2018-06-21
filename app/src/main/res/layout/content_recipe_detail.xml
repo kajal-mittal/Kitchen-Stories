@@ -9,10 +9,41 @@
     tools:context="com.kmdev.bakingapp.ui.activities.RecipeDetailActivity"
     tools:showIn="@layout/activity_recipe_detail">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="@string/ingradients"
+        android:textAppearance="@style/TextAppearance.FontPath.BOLD"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_18" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin" />
+
+    <TextView
+        android:id="@+id/tv_publisher_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:textAppearance="@style/TextAppearance.FontPath.REGULAR"
+        android:textSize="@dimen/text_size_small" />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text"/>
+        android:textAppearance="@style/TextAppearance.FontPath.BOLD"
+       />
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
