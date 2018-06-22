@@ -41,7 +41,7 @@ object Utils {
 
 
     fun dismissLoadingDialog() {
-        mLoadingDialog!!.dismiss()
+        mLoadingDialog?.dismiss()
         mLoadingDialog = null
 
     }
